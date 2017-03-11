@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block main_content %}
+    <div class="row">
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>主题</th>
+            <th>分类</th>
+            <th>用户</th>
+            <th>邮箱</th>
+            <th>处理状态</th>
+            <th>提交时间</th>
+            <th>操作</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}</td>
+            <td>{{ item[3] }}</td>
+            <td>{{ item[4] }}</td>
+            <td><span class="label label-{{ 'danger' if item[7] == 0 else 'success' }}">{{ '待处理' if item[7] == 0 else '已处理' }}</td>
+            <td>{{ item[9] }}</td>
+
+            <td>
+                <a href="#" class="btn btn-default btn-xs" title="查看"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn btn-default btn-xs" title="编辑"><i class="fa fa-pencil"></i></a>
+                <a href="#" class="btn btn-default btn-xs" title="删除"><i class="fa fa-trash"></i></a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="row text-center" >
+        <nav>
+  <ul class="pagination">
+    <li><a href="#">&laquo;</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">&raquo;</a></li>
+  </ul>
+</nav>
+    </div>
+    </div>
+{% endblock %}
