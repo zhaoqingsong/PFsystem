@@ -15,17 +15,17 @@
         {% for item in items %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ item[1] }}</td>
-            <td>{{ item[2] }}</td>
-            <td>{{ item[3] }}</td>
-            <td>{{ item[4] }}</td>
-            <td><span class="label label-{{ 'danger' if item[7] == 0 else 'success' }}">{{ '待处理' if item[7] == 0 else '已处理' }}</td>
-            <td>{{ item[9] }}</td>
+            <td>{{ item['Subject'] }}</td>
+            <td>{{ item.get('CategoryName') }}</td>
+            <td>{{ item['UserName'] }}</td>
+            <td>{{ item.Email }}</td>
+            <td><span class="label label-{{ 'danger' if item['State'] == 0 else 'success' }}">{{ '待处理' if item.State == 0 else '已处理' }}</td>
+            <td>{{ item['ReleaseTime'] }}</td>
 
             <td>
                 <a href="#" class="btn btn-default btn-xs" title="查看"><i class="fa fa-search"></i></a>
-                <a href="#" class="btn btn-default btn-xs" title="编辑"><i class="fa fa-pencil"></i></a>
-                <a href="#" class="btn btn-default btn-xs" title="删除"><i class="fa fa-trash"></i></a>
+                <a href="{{ url_for('edit_feedback',id=item.rowid) }}" class="btn btn-default btn-xs" title="编辑"><i class="fa fa-pencil"></i></a>
+                <a href="{{ url_for('delete_feedback',id=item.rowid) }}" class="btn btn-default btn-xs" title="删除"><i class="fa fa-trash"></i></a>
             </td>
 
         </tr>
