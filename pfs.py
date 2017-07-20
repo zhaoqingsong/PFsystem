@@ -45,6 +45,19 @@ def close_connection(exeption):
 def pfs():
     return render_template('base.html')
 
+@app.route('/login/',methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        pwd = request.form.get('pwd')
+        sql = 'select count(*) as [Count] from UserInfo where UserName = ? and Password = ?;'
+        result = query_sql(sql,(username,pwd),one=True)
+        if int(result.get('Count')) > 0:
+            return redirect(url_for('feedback_list'))
+        return '用户名或者密码不匹配！'
+    return render_template('login.html')
+
+
 @app.route('/feedback/')
 def feedback():
 
@@ -69,8 +82,9 @@ def post_feedback():
 
 @app.route('/admin/list/')
 def feedback_list():
-    sql = 'select f.ROWID,f.*,c.CategoryName from feedback f INNER JOIN category c on c.ROWID = f.CategoryID ORDER BY f.ROWID DESC '
-    feedbacks = query_sql(sql)
+    key = request.args.get('key','')
+    sql = 'select f.ROWID,f.*,c.CategoryName from feedback f INNER JOIN category c on c.ROWID = f.CategoryID WHERE f.Subject LIKE ? ORDER BY f.ROWID DESC '
+    feedbacks = query_sql(sql,('%{}%'.format(key),))
     return render_template('feedback-list.html',items=feedbacks)
 
 @app.route('/admin/edit/<id>/')
