@@ -38,8 +38,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="image" class="control-label col-md-2">上传图片</label>
+                    <label for="image" class="control-label col-md-2">图片内容</label>
                     <div class="col-md-2 ">
+                        <img src="{{ url_for('render_file', filename=item.Image ) if item.Image else None }}" alt="{{ item.Subject }}" >
                         <input type="file" id="image" name="image">
                     </div>
                 </div>
